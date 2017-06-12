@@ -1,0 +1,9 @@
+.now
+  .small-6.columns
+    .row
+      - @first_hand.each do |card|
+          = render 'card', card: card
+  .small-6.columns
+    .row
+      - @second_hand.each do |card|
+          = render 'card', card: card
