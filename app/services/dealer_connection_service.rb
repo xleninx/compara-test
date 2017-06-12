@@ -8,7 +8,7 @@ class DealerConnectionService
     begin
       res = RestClient.post(@token_url, {})
       res.body
-    rescue RestClient::ExceptionWithResponse
+    rescue RestClient::ExceptionWithResponse => e
       false
     end
   end
