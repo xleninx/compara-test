@@ -1,47 +1,52 @@
 class PokerEvaluator
+  attr_reader :hand
 
-  CARD_VALUES = { "2" =>  2, "3" =>  3, "4" =>  4, "5" =>  5, "6" =>  6, "7" =>  7,
-    "8" =>  8, "9" =>  9, "10" => 10, "J" => 11, "Q" => 12, "K" => 13, "A" => 14 }
+  CARD_VALUES = { "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7,
+    "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14 }
   RANGE = CARD_VALUES.keys
+
+  def initialize(hand)
+    @hand = hand
+  end
 
   def high_card?(card_a, card_b)
     value = [CARD_VALUES[card_a], CARD_VALUES[card_b]].max
     CARD_VALUES.key(value)
   end
 
-  def one_pair?(hand)
+  def one_pair?
     count_by_number(hand).values.include?(2)
   end
 
-  def two_pairs?(hand)
+  def two_pairs?
     count_by_number(hand).values.sort == [2, 2, 1].sort
   end
 
-  def three_of_a_kind?(hand)
+  def three_of_a_kind?
     count_by_number(hand).values.include?(3)
   end
 
-  def straight?(hand)
+  def straight?
     consecutive_cards?(hand, 5)
   end
 
-  def flush?(hand)
+  def flush?
     suit_quantity_by?(hand: hand, quantity: 1)
   end
 
-  def full_house?(hand)
+  def full_house?
     count_by_number(hand).values.sort == [3, 2].sort
   end
 
-  def four_of_a_kind?(hand)
+  def four_of_a_kind?
     count_by_number(hand).values.sort == [4, 1].sort
   end
 
-  def straight_flush?(hand)
+  def straight_flush?
     consecutive_cards?(hand, 5) && suit_quantity_by?(hand: hand, quantity: 1)
   end
 
-  def royal_flush?(hand)
+  def royal_flush?
     suit_quantity_by?(hand: hand, quantity: 1) && include_flush_numbers?(hand)
   end
 
