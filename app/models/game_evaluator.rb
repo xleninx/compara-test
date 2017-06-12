@@ -20,4 +20,8 @@ class GameEvaluator
     HAND_RANKING[hand_name]
   end
 
+  def evaluate_high_card
+    
+  end
+
 end

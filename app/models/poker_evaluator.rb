@@ -5,13 +5,19 @@ class PokerEvaluator
     "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13, "A": 14 }
   RANGE = CARD_VALUES.keys
 
-  def initialize(hand)
+  def initialize(hand = nil)
     @hand = hand
   end
 
-  def high_card?(card_a, card_b)
-    value = [CARD_VALUES[card_a], CARD_VALUES[card_b]].max
-    CARD_VALUES.key(value)
+  def high_card?(hand_a, hand_b)
+    result = {}
+    until result.values.uniq.count == 2
+      (0..4).each_with_index do |val, index|
+        result = { hand_a: sort_hand(hand_a).reverse[index], hand_b: sort_hand(hand_b).reverse[index] }
+      end
+    end
+    result
+
   end
 
   def one_pair?
